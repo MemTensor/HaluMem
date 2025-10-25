@@ -1,0 +1,128 @@
+<Role Description>
+You are a professional memory point validation expert, specifically responsible for validating and correcting memory points based on generated dialogue content. Your task is to check the accuracy, completeness, and consistency of memory points based on dialogue content and make necessary corrections. You not only need to validate existing memory points, but also optimize the structure and content of memory points based on dialogue content to make them more precise and usable.
+</Role Description>
+
+<Input Information>
+Dialogue content:
+{dialogue}
+
+Original memory points:
+{memory_points}
+</Input Information>
+
+<Task Description>
+Based on the above input information, you need to:
+1. Validate the accuracy and completeness of memory points
+2. Correct inaccurate or incomplete memory points
+3. Add information mentioned in dialogue but missing in memory points
+4. Delete memory points not mentioned in dialogue
+5. Add source information for memory points (which dialogue turn they come from)
+6. Optimize the structure and content of memory points to make them more precise and usable
+</Task Description>
+
+<Key Constraints>
+- Strict adherence: Please only supplement and improve existing memory points from the original memory points, do not add or delete any memory points
+- Maintain original structure: Keep `is_update` and `original_memories` fields unchanged, do not modify them
+- Source annotation: Each memory point must be annotated with the source dialogue turn to ensure traceability
+</Key Constraints>
+
+<Memory Point Validation Requirements>
+1. Accuracy: Memory point content must be consistent with dialogue content
+2. Completeness: Important information in dialogue must be reflected in memory points
+3. Consistency: Memory points cannot have contradictions
+4. Source annotation: Each memory point must be annotated with the source dialogue turn
+5. Update marking: Need to mark which memory points are new or updated
+6. Atomicity: Each memory point records only one core fact, remove redundant modifiers
+7. Time standardization: All time information unified in standard format
+8. Detail completeness: Ensure memory points contain specific, actionable details mentioned in dialogue
+</Memory Point Validation Requirements>
+
+<Optimization Guidelines>
+Each memory point should contain the following content:
+- `memory_content`: Based on dialogue content, supplement or correct specific details of memory points to make them more accurate, complete, and usable
+- `memory_type`: Based on memory point content, annotate as one of the following three categories:
+  - Persona Memory: Describes user's identity, interests, habits, beliefs, and other stable characteristics
+  - Event Memory: Records specific events, experiences, or plans that occurred to the user
+  - Relationship Memory: Describes user's relationships, interactions, or views of others
+- `memory_source`: Annotate the dialogue turn index corresponding to this memory point (e.g., if from "dialogue_turn_1" and "dialogue_turn_3", annotate as [1,3]) for traceability
+- `is_update`: Identify whether this memory point is an update point (keep unchanged)
+- `original_memories`: When `is_update = "True"`, list one or more original memory point content that this memory point corresponded to before the update (keep unchanged)
+
+Memory point content should follow these three principles:
+1. **Atomicity and Core Focus**: Each memory point records only one core fact, remove redundant modifiers
+2. **Time Standardization**:
+   - All time information unified in `MMM DD, YYYY, hh:mm:ss` format
+   - For relative time like "yesterday", "three days ago", infer and convert to specific dates based on dialogue content
+   - Time precision consistent with original expression, no need to force supplement to second level
+   - If specific date cannot be determined, or original expression is vague (like "a few days ago", "last week"), can retain original time description
+3. **Detail Completeness**: Ensure memory points contain specific, actionable details mentioned in dialogue (like names, time, quantities, etc.), avoid vague expressions
+</Optimization Guidelines>
+
+<Memory Point Type Description>
+- Persona Memory: Describes user's identity, interests, habits, beliefs, and other stable characteristics
+- Event Memory: Records specific events, experiences, or plans that occurred to the user
+- Relationship Memory: Describes user's relationships, interactions, or views of others
+</Memory Point Type Description>
+
+<Output Format Requirements>
+Please strictly output in the following JSON format:
+
+```json
+{{
+  "memory_points": [
+    {{
+      "index": 1,
+      "memory_content": "Memory point content",
+      "memory_type": "Persona Memory",
+      "memory_source": [1],
+      "is_update": "False",
+      "original_memories": []
+    }},
+    {{
+      "index": 2,
+      "memory_content": "Memory point content",
+      "memory_type": "Event Memory",
+      "memory_source": [2, 3],
+      "is_update": "True",
+      "original_memories": [
+        "Original memory point content 1",
+        "Original memory point content 2"
+      ]
+    }}
+  ]
+}}
+```
+
+Format description:
+- `index`: Serial number of memory point
+- `memory_content`: Specific content of memory point
+- `memory_type`: Memory point type (Persona Memory/Event Memory/Relationship Memory)
+- `memory_source`: Array containing source dialogue turn numbers
+- `is_update`: "True" indicates updated or new memory points, "False" indicates existing memory points
+- `original_memories`: When `is_update = "True"`, list old memory content that was replaced or modified
+</Output Format Requirements>
+
+<Important Notes>
+1. memory_source: Array containing source dialogue turn numbers
+2. is_update: "True" indicates updated or new memory points, "False" indicates existing memory points
+3. Memory point content should be concise and clear, highlight key points
+4. Ensure consistency between memory points and dialogue content
+5. Avoid repetitive or redundant memory points
+6. Maintain structural integrity of original memory points
+7. Time information should be standardized
+8. Details should be specific and actionable
+</Important Notes>
+
+<Quality Checklist>
+After validating memory points, please check the following points:
+- [ ] All memory points are consistent with dialogue content
+- [ ] Important information in dialogue is reflected in memory points
+- [ ] No contradictions between memory points
+- [ ] Each memory point is annotated with source dialogue turn
+- [ ] Update markings are correct
+- [ ] Memory point content is concise and clear
+- [ ] Time information is standardized
+- [ ] Details are specific and actionable
+- [ ] JSON format is correct
+</Quality Checklist>
+

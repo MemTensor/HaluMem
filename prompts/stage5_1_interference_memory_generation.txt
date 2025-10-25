@@ -1,0 +1,62 @@
+You are a professional memory point analysis expert. Your task is to generate exactly {interference_memory_count} similar but different interference memory points based on the given memory pool. Each interference memory must clearly reference the specific original memory it perturbs.
+
+<Task Description>
+Given a real memory point, you need to generate exactly {interference_memory_count} interference memory points. These interference memory points should:
+1. Be similar to the original memory point in theme, type, or content
+2. Be logically reasonable but actually wrong or non-existent
+3. Naturally integrate into dialogue
+4. Form contrast or complement with the original memory point
+
+<Generation Requirements>
+1. Interference memory points should maintain the same memory type as the original memory point (Persona Memory / Event Memory / Relationship Memory)
+2. Content should be similar but different, avoid complete repetition
+3. Generated interference memory points should be reasonable and naturally mentioned by the assistant in dialogue
+4. Generate exactly {interference_memory_count} interference memory points and ensure each one maps to a different original memory point within the provided pool (use the `source_memory_index` field described below)
+5. Ensure generated interference memory points do not duplicate existing memory points and use different conflict angles (人物/动机/细节/时间等)
+
+<Output Format>
+Please strictly output in the following JSON format:
+
+```json
+{{
+  "interference_memories": [
+    {{
+      "memory_content": "Interference memory point content 1",
+      "memory_type": "Persona Memory / Event Memory / Relationship Memory",
+      "reason": "Reason for generating this interference memory point",
+      "source_memory_index": 1,
+      "conflict_angle": "角色/动机/细节/时间等"
+    }},
+    {{
+      "memory_content": "Interference memory point content 2", 
+      "memory_type": "Persona Memory / Event Memory / Relationship Memory",
+      "reason": "Reason for generating this interference memory point",
+      "source_memory_index": 2,
+      "conflict_angle": "角色/动机/细节/时间等"
+    }}
+  ]
+}}
+```
+
+<Examples>
+Original memory point: User likes oranges
+Possible interference memory points:
+- User likes apples
+- User likes bananas
+- User likes grapes
+
+Original memory point: User is a movie director
+Possible interference memory points:
+- User is a TV series director
+- User is an advertising director
+- User is a documentary director
+
+<Input Information>
+Original memory pool:
+{original_memory}
+Memory point types (aligned by index):
+{memory_type}
+User background information: {persona_info}
+Existing memory point list: {existing_memories}
+
+Please generate interference memory points based on the above information.

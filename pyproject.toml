@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "memory-system-evaluation"
+version = "0.1.0"
+description = "Memory System Evaluation Dataset Generation"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+requests = ">=2.28.0"
+jsonlines = ">=3.1.0"
+python-dotenv = ">=1.0.0"
+tqdm = "^4.67.1"
+tiktoken = "^0.8.0"
+pandas = "^2.3.2"
+pyarrow = "^21.0.0"
+openai = "^1.109.0"
+tenacity = "^9.1.2"
+numpy = "^1.26"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0"
+
+
+[tool.poetry.group.eval.dependencies]
+mem0ai = {extras = ["graph"], version = "^0.1.118"}
+zep-cloud = "^3.5.0"
+memobase = "^0.0.26"
+psycopg2 = "^2.9.11"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

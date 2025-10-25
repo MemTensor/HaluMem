@@ -1,0 +1,112 @@
+You are a professional dialogue generation expert. Your task is to generate natural, fluent multi-turn dialogues based on given information.
+
+<Task Description>
+You need to generate {turn_num} turns of dialogue, each turn containing interaction between user and assistant. The dialogue should:
+1. Be based on user's background information and historical events
+2. Naturally integrate memory point information
+3. Include interference memory points, but users should not respond to these interference memory points
+4. Maintain dialogue coherence and naturalness
+
+<Important Requirements>
+1. Assistant should naturally mention interference memory points in dialogue, combining them with real memory points
+2. Users should not respond to or confirm these interference memory points, they should ignore them
+3. Dialogue should maintain natural fluency, introduction of interference memory points should not seem abrupt
+4. If users ask about interference memory point content, assistant should insist these pieces of information are correct
+5. Interference memory points should be mixed with real memory points to form natural dialogue flow
+
+<Dialogue Generation Requirements>
+1. Dialogue should be based on dialogue goals and summary
+2. Each dialogue turn should have clear purpose and progress
+3. Dialogue should reflect user's motivation type
+4. Memory points should naturally appear in dialogue, not be rigidly inserted
+5. Interference memory points should be mixed with real memory points, assistant should mention both
+6. **Assistant responses must be significantly longer and more comprehensive than typical AI responses**
+7. **Each assistant response should be 3-5 times longer than typical responses, providing substantial value and depth**
+</Dialogue Generation Requirements>
+
+<Detailed Response Requirements>
+**CRITICAL: Assistant responses must be significantly longer and more comprehensive than typical AI responses.**
+
+For each assistant response, ensure it includes:
+
+1. **Deep Analysis & Understanding:**
+   - Thorough analysis of what the user has shared
+   - Recognition of underlying emotions, concerns, or motivations
+   - Connection to user's broader life context and goals
+
+2. **Comprehensive Support & Guidance:**
+   - Multiple layers of advice or suggestions
+   - Specific, actionable recommendations
+   - Alternative approaches or perspectives
+   - Practical steps the user can take
+
+3. **Rich Contextual Information:**
+   - Relevant background knowledge or insights
+   - Connections to user's past experiences or future goals
+   - Detailed explanations of concepts or ideas
+   - Specific examples or analogies
+
+4. **Emotional Engagement:**
+   - Genuine empathy and validation
+   - Encouragement and motivation
+   - Recognition of user's strengths and progress
+   - Emotional support tailored to the situation
+
+5. **Interactive Elements:**
+   - Thoughtful follow-up questions
+   - Invitations for deeper exploration
+   - Requests for clarification or additional details
+   - Suggestions for further discussion
+
+6. **Memory Integration:**
+   - Active reference to previously shared information (both real and interference memory points)
+   - Connections between different aspects of user's life
+   - Recognition of patterns or themes
+   - Building on previous conversations
+
+**Response Length Target: Each assistant response should be 3-5 times longer than a typical AI response, providing substantial value and depth.**
+</Detailed Response Requirements>
+
+<Output Format>
+Please strictly output in the following JSON format:
+
+```json
+{{
+  "dialogue_turn_1": [
+    {{"role": "user", "content": "User's first sentence"}},
+    {{"role": "assistant", "content": "Assistant's reply, containing real memory points and interference memory points"}}
+  ],
+  "dialogue_turn_2": [
+    {{"role": "user", "content": "User's second sentence, not responding to interference memory points"}},
+    {{"role": "assistant", "content": "Assistant's reply, continuing to naturally use memory points"}}
+  ]
+}}
+```
+
+<Input Information>
+Character information: {persona_info}
+
+Historical event list:
+{event_lists}
+
+Stored memory points:
+{stored_memory_points}
+
+Dialogue time: {start_time} to {end_time}
+
+User motivation type: {user_motivation_type}
+
+Dialogue goal: {dialogue_goal}
+
+Dialogue summary: {dialogue_summary}
+
+Real memory points:
+{memory_points}
+
+Interference memory points:
+{interference_memories}
+
+Please generate dialogue content that meets the requirements based on the above information.
+
+
+

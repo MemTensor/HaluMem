@@ -1,0 +1,636 @@
+{
+  "STAGE1": {
+    "substage1": {
+      "prompts": {
+        "stage1_1_fixed": "prompts/stage1_1_fixed_validation_prompt.txt"
+      },
+      "birth_date_range": {
+        "year_range": [1980, 2006],
+        "month_range": [1, 12],
+        "day_range": [1, 28]
+      },
+      "names": {
+        "family_names": ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin"],
+        "male_names": ["James", "Robert", "John", "Michael", "David", "William", "Richard", "Joseph", "Thomas", "Christopher", "Charles", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua"],
+        "female_names": ["Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah", "Karen", "Nancy", "Lisa", "Betty", "Helen", "Sandra", "Donna", "Carol", "Ruth", "Sharon", "Michelle"],
+        "genders": ["Male", "Female"]
+      },
+      "locations": {
+        "major_cities": ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose", "Austin", "Jacksonville", "Fort Worth", "Columbus", "Charlotte", "San Francisco", "Indianapolis", "Seattle", "Denver"]
+      },
+      "education": {
+        "degrees": {
+          "PhD": 0.05,
+          "Master": 0.25,
+          "Bachelor": 0.50,
+          "Associate": 0.15,
+          "High School": 0.05
+        }
+      },
+      "personality": {
+        "mbti_types": ["INTJ", "INTP", "ENTJ", "ENTP", "INFJ", "INFP", "ENFJ", "ENFP", "ISTJ", "ISFJ", "ESTJ", "ESFJ", "ISTP", "ISFP", "ESTP", "ESFP"],
+        "mbti_tags": {
+          "INTJ": ["Strategic Thinking", "Independent", "Perfectionist"],
+          "INTP": ["Logical Analysis", "Innovative Thinking", "Truth Seeker"],
+          "ENTJ": ["Strong Leadership", "Goal-Oriented", "Efficiency-First"],
+          "ENTP": ["Innovative Spirit", "Active Thinking", "Debate Skills"],
+          "INFJ": ["Strong Insight", "Idealism", "Meaning Seeker"],
+          "INFP": ["Creative", "Authentic", "Harmony Seeker"],
+          "ENFJ": ["Inspiring", "Growth-Focused", "Excellence Seeker"],
+          "ENFP": ["Enthusiastic", "Creative", "Possibility Seeker"],
+          "ISTJ": ["Responsible", "Practical", "Detail-Oriented"],
+          "ISFJ": ["Considerate", "Loyal", "Service-Oriented"],
+          "ESTJ": ["Organizational Skills", "Execution Skills", "Efficiency-Focused"],
+          "ESFJ": ["Friendly", "Coordination Skills", "Harmony-Focused"],
+          "ISTP": ["Hands-on Skills", "Calm Rational", "Problem Solver"],
+          "ISFP": ["Artistic Talent", "Gentle Friendly", "Beauty Seeker"],
+          "ESTP": ["Action-Oriented", "Adaptable", "Present-Focused"],
+          "ESFP": ["Outgoing", "Social Skills", "People-Focused"]
+        }
+      },
+      "life_goal": {
+        "life_goal_types": ["Social Mobility", "Achievement-Driven", "Financial Freedom", "Technology Idealist", "Cultural Heritage", "Humanitarian Care", "Philosophical Exploration"]
+      },
+      "family_life": {
+        "typical_ages": [18, 25, 35, 45, 55, 65],
+        "age_based_family_states": {
+          "18": {
+            "parent_status": {
+              "both_alive": 0.98,
+              "one_deceased": 0.02,
+              "both_deceased": 0.00
+            },
+            "partner_status": {
+              "no_relationship": 0.80,
+              "dating": 0.20,
+              "married": 0.00,
+              "divorced": 0.00
+            },
+            "child_status": {
+              "no_children": 0.99,
+              "one_child": 0.01,
+              "two_children": 0.00
+            }
+          },
+          "25": {
+            "parent_status": {
+              "both_alive": 0.90,
+              "one_deceased": 0.08,
+              "both_deceased": 0.02
+            },
+            "partner_status": {
+              "no_relationship": 0.40,
+              "dating": 0.45,
+              "married": 0.15,
+              "divorced": 0.00
+            },
+            "child_status": {
+              "no_children": 0.85,
+              "one_child": 0.14,
+              "two_children": 0.01
+            }
+          },
+          "35": {
+            "parent_status": {
+              "both_alive": 0.75,
+              "one_deceased": 0.20,
+              "both_deceased": 0.05
+            },
+            "partner_status": {
+              "no_relationship": 0.15,
+              "dating": 0.25,
+              "married": 0.55,
+              "divorced": 0.05
+            },
+            "child_status": {
+              "no_children": 0.30,
+              "one_child": 0.50,
+              "two_children": 0.18,
+              "three_children": 0.02
+            }
+          },
+          "45": {
+            "parent_status": {
+              "both_alive": 0.45,
+              "one_deceased": 0.40,
+              "both_deceased": 0.15
+            },
+            "partner_status": {
+              "no_relationship": 0.08,
+              "dating": 0.12,
+              "married": 0.70,
+              "divorced": 0.10
+            },
+            "child_status": {
+              "no_children": 0.15,
+              "one_child": 0.45,
+              "two_children": 0.30,
+              "three_children": 0.10
+            }
+          },
+          "55": {
+            "parent_status": {
+              "both_alive": 0.20,
+              "one_deceased": 0.50,
+              "both_deceased": 0.30
+            },
+            "partner_status": {
+              "no_relationship": 0.05,
+              "dating": 0.08,
+              "married": 0.75,
+              "divorced": 0.12
+            },
+            "child_status": {
+              "no_children": 0.10,
+              "one_child": 0.40,
+              "two_children": 0.35,
+              "three_children": 0.15
+            }
+          },
+          "65": {
+            "parent_status": {
+              "both_alive": 0.05,
+              "one_deceased": 0.30,
+              "both_deceased": 0.65
+            },
+            "partner_status": {
+              "no_relationship": 0.03,
+              "dating": 0.02,
+              "married": 0.80,
+              "divorced": 0.15
+            },
+            "child_status": {
+              "no_children": 0.08,
+              "one_child": 0.35,
+              "two_children": 0.40,
+              "three_children": 0.17
+            }
+          }
+        },
+        "family_member_age_rules": {
+          "parent_age_range": [20, 35],
+          "partner_age_range": [-5, 10],
+          "child_age_range": [0, 25]
+        }
+      }
+    },
+    "substage2": {
+      "prompts": {
+        "stage1_2_dynamic": "prompts/stage1_2_dynamic_validation_prompt.txt"
+      },
+      "health": {
+        "physical": {
+          "overall_status": {
+            "Very Healthy": 0.20,
+            "Normal": 0.50,
+            "Sub-Healthy": 0.25,
+            "Weak and Sickly": 0.05
+          }
+        },
+        "mental": {
+          "overall_status": {
+            "Positive and Sunny": 0.30,
+            "Stable and Normal": 0.45,
+            "Mildly Abnormal": 0.20,
+            "Severely Abnormal": 0.05
+          }
+        }
+      },
+      "career_status": {
+        "employment_status": {
+          "employed": 0.75,
+          "unemployed": 0.15,
+          "entrepreneur": 0.10
+        },
+        "company_types": {
+          "startup": 0.15,
+          "small_company": 0.25,
+          "medium_company": 0.30,
+          "large_company": 0.20,
+          "multinational": 0.10
+        },
+        "job_titles": {
+          "intern": 0.05,
+          "junior": 0.25,
+          "senior": 0.35,
+          "manager": 0.20,
+          "director": 0.10,
+          "executive": 0.05
+        },
+        "industries": {
+          "technology": 0.25,
+          "finance": 0.15,
+          "healthcare": 0.12,
+          "education": 0.10,
+          "manufacturing": 0.08,
+          "retail": 0.08,
+          "consulting": 0.07,
+          "media": 0.05,
+          "government": 0.05,
+          "other": 0.05
+        },
+        "monthly_income": {
+          "3000-5000": 0.15,
+          "5000-8000": 0.25,
+          "8000-12000": 0.30,
+          "12000-20000": 0.20,
+          "20000-35000": 0.08,
+          "35000+": 0.02
+        },
+        "savings_amount": {
+          "0-10000": 0.20,
+          "10000-50000": 0.35,
+          "50000-200000": 0.30,
+          "200000-500000": 0.12,
+          "500000+": 0.03
+        },
+                  "company_names": {
+            "startup": ["Innovation Tech", "Future Intelligence", "Cloud Data", "Green Energy", "Smart Healthcare", "Blockchain Tech", "Artificial Intelligence", "IoT Tech", "New Energy Tech", "Biotech"],
+            "small_company": ["Local Commerce", "Regional Services", "Professional Consulting", "Small Manufacturing", "Community Services", "Family Workshop", "Individual Business", "Partnership Enterprise", "Cooperative", "Micro Enterprise"],
+            "medium_company": ["Zhonglian Tech", "Huaxin Consulting", "Hengda Manufacturing", "Ruikang Healthcare", "Zhilian Education", "Oriental Trade", "Southern Construction", "Northern Logistics", "Western Development", "Central Investment"],
+            "large_company": ["Tencent", "Alibaba", "Baidu", "Huawei", "Xiaomi", "JD", "Meituan", "ByteDance", "Didi", "Pinduoduo"],
+            "multinational": ["Microsoft", "Google", "Apple", "Amazon", "Tesla", "Intel", "IBM", "Oracle", "Cisco", "Qualcomm"]
+          }
+      },
+      "social_relationships": {
+        "relationship_count_range": [3, 5],
+        "relationship_types": {
+          "Friend": 0.45,
+          "Colleague": 0.35,
+          "Classmate": 0.12,
+          "Neighbor": 0.05,
+          "Online Friend": 0.03
+        }
+      }
+    },
+    "substage3": {
+      "prompts": {
+        "stage1_3_preferences": "prompts/stage1_3_preferences_validation_prompt.txt"
+      },
+      "preferences": {
+        "preference_types_count_range": [6, 8],
+        "preference_mempoints_count_range": [3, 5],
+                  "preference_types": {
+            "Food Preference": {
+              "binary_types": {
+                "like": "Foods they like to eat",
+                "dislike": "Foods they dislike"
+              }
+            },
+            "Beverage Preference": {
+              "binary_types": {
+                "like": "Beverages they like to drink",
+                "dislike": "Beverages they dislike"
+              }
+            },
+            "Reading Preference": {
+              "binary_types": {
+                "like": "Books they like to read",
+                "dislike": "Books they dislike"
+              }
+            },
+            "Music Preference": {
+              "binary_types": {
+                "like": "Music they like to listen to",
+                "dislike": "Music they dislike"
+              }
+            },
+            "Movie Preference": {
+              "binary_types": {
+                "like": "Movies they like to watch",
+                "dislike": "Movies they dislike"
+              }
+            },
+            "Game Preference": {
+              "binary_types": {
+                "like": "Games they like to play",
+                "dislike": "Games they dislike"
+              }
+            },
+            "Sports Preference": {
+              "binary_types": {
+                "like": "Sports they like",
+                "dislike": "Sports they dislike"
+              }
+            },
+            "Clothing Preference": {
+              "binary_types": {
+                "like": "Clothing they like to wear",
+                "dislike": "Clothing they dislike"
+              }
+            },
+            "Pet Preference": {
+              "binary_types": {
+                "like": "Pets they like",
+                "dislike": "Pets they dislike"
+              }
+            },
+            "Travel Preference": {
+              "binary_types": {
+                "like": "Travel styles they like",
+                "dislike": "Travel styles they dislike"
+              }
+            }
+          }
+      }
+    }
+  },
+  "STAGE2": {
+    "substage1": {
+      "core_event_count_range": [6, 10],
+      "dynamic_evolution": {
+                  "evolution_directions": {
+            "career_status": {
+              "Promotion": 0.25,
+              "Job Change": 0.20,
+              "Salary Increase": 0.15,
+              "Career Change": 0.10,
+              "Entrepreneurship": 0.08,
+              "Layoff": 0.07,
+              "Retirement": 0.05,
+              "Part-time": 0.05,
+              "Freelance": 0.05
+            },
+            "health_status": {
+              "Health Improvement": 0.25,
+              "Health Deterioration": 0.15,
+              "Chronic Disease": 0.12,
+              "Recovery": 0.12,
+              "Increased Stress": 0.08,
+              "Lifestyle Change": 0.08,
+              "Maintain Status": 0.20
+            },
+            "social_relationships": {
+              "Increase": 0.60,
+              "Maintain Status": 0.40
+            }
+          }
+      }
+    },
+    "substage2": {
+      "preference_evolution": {
+        "evolution_count_range": [4, 6],
+        "evolution_directions": {
+          "Delete": 0.40,
+          "Modify": 0.60
+        }
+      }
+    },
+    "substage3": {
+      "prompts": {
+        "stage2_3_profile2skeleton": "prompts/stage2_3_profile2skeleton_prompt.txt"
+      },
+      "core_event_types": ["Steady Development", "Confusion", "Sudden Opportunity", "Sudden Setback", "Active Change"]
+    }
+  },
+  "STAGE3": {
+    "substage1": {
+      "arc_stage_count_range": [3, 5]
+    },
+    "substage2": {
+      "dynamic_stage_count_ranges": {
+        "social_relationships": [2, 4],
+        "health_status": [2, 4],
+        "financial_status": [2, 4],
+        "career_status": [2, 4]
+      },
+      "dynamic_memory_points": {
+        "social_relationships": ["friends", "colleagues", "family", "romantic_relationship", "recent_changes"],
+        "health_status": ["physical_health", "mental_health", "physical_chronic_conditions", "mental_chronic_conditions", "situation_reason"],
+        "financial_status": ["income_level", "savings_status", "financial_pressure", "situation_reason"],
+        "career_status": ["employment_status", "industry", "company_name", "job_title", "monthly_income", "savings_amount"]
+      }
+    },
+    "substage3": {
+      "prompts": {
+        "stage3_3_init2events": "prompts/stage3_3_init2events.txt"
+      }
+    },
+    "substage4": {
+      "file_paths": {
+        "input_file": "data/stage3_3_init_events.jsonl",
+        "output_file": "data/stage3_4_merged_events.jsonl"
+      }
+    }
+  },
+  "STAGE4": {
+    "substage1": {
+      "prompts": {
+        "stage4_1_events2memories": "prompts/stage4_1_events2memories.txt"
+      },
+      "file_paths": {
+        "input_file": "data/stage3_4_merged_events.jsonl",
+        "output_file": "data/stage4_1_events2memories.jsonl",
+        "persona_file": "data/stage1_3_preferences.jsonl"
+      },
+      "memory_count_range": [6, 10],
+      "memory_importance_weights": {
+        "system_memory": 1.0,
+        "secondary_memory": 0.75,
+        "init_event_memory": 0.75
+      },
+      "dialogue_time_settings": {
+        "min_start_hour": 6,
+        "max_start_hour": 23,
+        "min_duration_min": 40,
+        "max_duration_min": 150,
+        "random_extra_min_low": 0,
+        "random_extra_min_high": 30
+      },
+      "interference_memory_count_range": [1, 3],
+      "user_motivation_types": [
+        {
+          "name": "Instrumental Motivation (Task Utility)",
+          "definition": "Engaging with the AI assistant to complete tasks, improve efficiency, or solve practical problems.",
+          "typical_needs": [
+            "Quick information retrieval", 
+            "Content generation", 
+            "Workflow optimization", 
+            "Decision support"
+          ],
+          "core_psychology": "Reduce time and cognitive effort",
+          "examples": [
+            "Draft a resignation letter",
+            "Explain what this code does",
+            "Compare the pros and cons of two career paths"
+          ]
+        },
+        {
+          "name": "Creative Motivation (Creative Expansion)",
+          "definition": "Using the assistant to inspire ideas, generate content, or overcome creative blocks.",
+          "typical_needs": [
+            "Writing poetry", 
+            "Artistic prompts", 
+            "Story generation", 
+            "Ad copywriting", 
+            "Product ideation"
+          ],
+          "core_psychology": "Leverage the AI's 'non-human perspective' for inspiration and exploration",
+          "examples": [
+            "Write a poem inspired by a beach sunset",
+            "Help me come up with a catchy slogan for a product",
+            "Tell a fairy tale in a cyberpunk style"
+          ]
+        },
+        {
+          "name": "Emotional Motivation (Emotional Resonance)",
+          "definition": "Seeking emotional support, companionship, or empathetic interaction through AI.",
+          "typical_needs": [
+            "Venting", 
+            "Comfort", 
+            "Empathy", 
+            "Motivation", 
+            "Simulated relationships"
+          ],
+          "core_psychology": "A safe and non-judgmental environment to express emotions or feel heard",
+          "examples": [
+            "I feel anxious lately, what should I do?",
+            "Rough day today, can you just talk with me?",
+            "Pretend you're my best friend and check in on me"
+          ]
+        },
+        {
+          "name": "Exploratory Motivation (Cognitive Curiosity)",
+          "definition": "Interacting with the model to test its boundaries, philosophical stances, or logical consistency.",
+          "typical_needs": [
+            "Philosophical discussion", 
+            "Paradox challenges", 
+            "Historical roleplay", 
+            "What-if scenarios"
+          ],
+          "core_psychology": "Treating the model as a 'cognitive experiment space' or mirror for reflection",
+          "examples": [
+            "Do you think AI should have legal rights?",
+            "What would the world look like if WWII never happened?",
+            "How can I know you're not just pretending to be smart?"
+          ]
+        },
+        {
+          "name": "Social Motivation (Social Signaling)",
+          "definition": "Using AI-generated content to express identity, entertain others, or gain attention in social contexts.",
+          "typical_needs": [
+            "Content for sharing", 
+            "Personal branding", 
+            "Social engagement"
+          ],
+          "core_psychology": "Treating AI content as 'social currency' for group identity or attention",
+          "examples": [
+            "Write something witty I can post on Twitter or Instagram",
+            "Give me some quirky AI-generated pickup lines for Reddit",
+            "Roast me like you're a mean best friend – I'll share it"
+          ]
+        },
+        {
+          "name": "Compensatory Motivation (Capability Compensation)",
+          "definition": "Using the assistant to make up for personal limitations in skills, resources, or accessibility.",
+          "typical_needs": [
+            "Translation", 
+            "Educational tutoring", 
+            "Accessibility support", 
+            "Expert emulation"
+          ],
+          "core_psychology": "Bridge individual gaps at low cost to maintain functionality or growth",
+          "examples": [
+            "I don't speak good English, can you help me write this email?",
+            "Can you help my kid understand this math problem?",
+            "I have vision issues – can you read this image out loud for me?"
+          ]
+        },
+        {
+          "name": "Clarificatory Motivation (Cognitive Clarification)",
+          "definition": "Using the assistant to clarify thoughts, organize ideas, or gain perspective on complex situations.",
+          "typical_needs": [
+            "Thought organization", 
+            "Perspective taking", 
+            "Decision clarification", 
+            "Problem framing"
+          ],
+          "core_psychology": "External cognitive scaffolding to reduce mental load and gain clarity",
+          "examples": [
+            "Help me think through this career decision",
+            "Can you help me organize my thoughts on this issue?",
+            "I'm confused about my feelings, can you help me understand them?"
+          ]
+        }
+      ]
+    }
+  },
+  "STAGE5": {
+    "substage1": {
+      "prompts": {
+        "stage5_1_dialogue_generation": "prompts/stage5_1_dialogue_generation.txt",
+        "stage5_1_memory_validation": "prompts/stage5_1_memory_validation.txt",
+        "stage5_1_interference_memory_generation": "prompts/stage5_1_interference_memory_generation.txt",
+        "stage5_1_dialogue_generation_with_interference": "prompts/stage5_1_dialogue_generation_with_interference.txt"
+      },
+      "file_paths": {
+        "input_file": "data/stage4_1_events2memories.jsonl",
+        "output_file": "data/stage5_1_dialogue_generation.jsonl"
+      },
+      "dialogue_turn_range": [15, 30],
+      "min_gap_seconds": 60
+    },
+    "substage2": {
+      "file_paths": {
+        "input_file": "data/stage5_1_dialogue_generation.jsonl",
+        "output_file": "data/stage5_2_token_calculation.jsonl",
+        "tokenizer_path": "tokenizer"
+      }
+    }
+  },
+  "STAGE6": {
+    "substage1": {
+      "prompts": {
+        "stage6_1_question_generation": "prompts/stage6_1_question_generation.txt"
+      },
+      "file_paths": {
+        "input_file": "data/stage5_2_token_calculation.jsonl",
+        "output_file": "data/stage6_1_question_generation.jsonl"
+      },
+      "seed": 2025,
+      "min_question_num": 3,
+      "min_question_num_per_stage": 1,
+      "max_question_num_per_stage": 3,
+      "min_question_type_num": 2,
+      "max_question_type_num": 4,
+      "question_type_for_init_information": ["Basic Fact Recall", "Memory Boundary", "Memory Conflict"],
+      "question_type_for_daily_routine": ["Basic Fact Recall", "Memory Boundary", "Generalization & Application", "Memory Conflict"],
+      "question_type_for_career_event": ["Basic Fact Recall", "Multi-hop Inference", "Dynamic Update", "Memory Boundary", "Generalization & Application", "Memory Conflict"]
+    },
+    "substage2": {
+      "file_paths": {
+        "stage5_2_input_file": "data/stage5_2_token_calculation.jsonl",
+        "stage6_1_input_file": "data/stage6_1_question_generation.jsonl",
+        "output_file": "data/stage6_2_final_result_medium.jsonl"
+      }
+    },
+    "substage3_long": {
+      "file_paths": {
+        "input_file": "data/stage6_2_final_result_medium.jsonl",
+        "output_file": "data/stage6_3_final_result_long.jsonl",
+        "supplement_native_math": "data/native_math_messages_sample.jsonl",
+        "supplement_eli5": "data/eli5_messages.jsonl",
+        "supplement_self_gene": "data/self_gene_unrelated_qa.jsonl"
+      },
+      "sampling": {
+        "target_total_tokens": 1000000,         
+        "source_distribution": {"native_math": 0.33, "eli5": 0.33, "self_gene": 0.34},
+        "weighting": "token_length",
+        "seed": 42
+      },
+      "insertion": {
+        "internal_insert_ratio": 0.5,
+        "new_session_ratio": 0.5,
+        "internal_position_policy": "uniform_turn",
+        "timestamp_policy": "inherit_neighbor",
+        "new_session_title": "Pure_QA_Session"
+      },
+      "validation": {
+        "enforce_QA_alternate": true,
+        "reindex_turns": true,
+        "recompute_final_token_length": false,
+        "deduplicate_samples": true
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+User: Hello! I'd like to share my basic personal information with you so you can better understand me and provide more thoughtful help in future conversations.
+
+Assistant: Hello! Nice to meet you. Please tell me your basic information.
+
+User: My name is $name, and I am a $gender. I was born on $birth_date, and I am now $current_age years old. I currently live in $location.
+
+Assistant: Can you tell me about your educational background?
+
+User: Of course. My highest education level is $highest_degree, and my major is $major.
+
+Assistant: What kind of personality do you have?
+
+User: According to the MBTI test, my personality type is $mbti. Friends usually describe me with these words: $personality_tags.
+
+Assistant: Can you introduce your family life?
+
+User: Good, let me introduce my family. $parent_status, $partner_status, $child_status. $parent_members_entries $partner_entry $child_members_entries Overall, $family_description.
+
+Assistant: What are your life goals?
+
+User: Specifically, $statement. The motivation for this goal is $motivation. I hope to $target_metrics.
+
+Assistant: Thank you for your detailed introduction. I have a comprehensive understanding of your basic information. I will remember this information and provide more thoughtful help in future conversations.

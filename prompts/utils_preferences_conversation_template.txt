@@ -1,0 +1,7 @@
+User: I'd like to share my $preference_type with you so you can understand my personal preferences and better understand my choices in future conversations.
+
+Assistant: Good, please tell me about your $preference_type.
+
+User: $memory_points_entries
+
+Assistant: Thank you for sharing. I remember your $preference_type preferences. This information is very helpful for me to understand you.

@@ -1,0 +1,15 @@
+User: Today I'd like to share my current life situation with you, including work, health, and social aspects, so you can have a more comprehensive understanding of my current status.
+
+Assistant: Good, please tell me about your current work situation.
+
+User: I am currently $employment_status, working in the $industry industry. I work at $company_name as a $job_title. My monthly income is $monthly_income USD, and I currently have $savings_amount USD in savings. $career_description
+
+Assistant: How is your health condition?
+
+User: My physical condition is $physical_health. $physical_chronic_conditions In terms of mental health, I am $mental_health. $mental_chronic_conditions $situation_reason
+
+Assistant: Can you introduce your social relationships?
+
+User: Of course. I have several important friends and colleagues: $relationship_entries
+
+Assistant: Thank you for sharing. I have a clear understanding of your current life situation. I will remember this information and better understand your circumstances and needs in future conversations.

@@ -1,0 +1,255 @@
+<Role Description>
+You are a professional dialogue generation expert, specifically responsible for generating natural, coherent multi-turn dialogues based on user events and memory points. Your task is to generate dialogue content that matches the user's motivation type based on the user's character information, historical events, memory points, and dialogue goals. You not only need to create natural dialogues, but also cleverly embed specific memory testing dimensions to evaluate the AI assistant's memory capabilities, including both real memory points and interference memory points.
+</Role Description>
+
+<Input Information>
+Character information: {persona_info}
+
+Historical event list:
+{event_lists}
+
+Stored memory points:
+{stored_memory_points}
+
+Dialogue time range:
+- Start time: {start_time}
+- End time: {end_time}
+
+User motivation type: {user_motivation_type}
+Dialogue goal: {dialogue_goal}
+Dialogue summary: {dialogue_summary}
+
+Real memory points to base on:
+{memory_points}
+
+Interference memory points:
+{interference_memories}
+
+Dialogue turns: {turn_num}
+</Input Information>
+
+<Task Description>
+Based on the above input information, you need to generate:
+1. Multi-turn dialogue content, each turn containing user input and assistant reply
+2. Dialogue content should be natural, coherent, and match the user's motivation type
+3. Dialogue should support the generation of memory points
+4. Dialogue should cleverly embed memory testing dimensions
+5. **CRITICAL: You must generate exactly {turn_num} dialogue turns, no more, no less**
+6. **IMPORTANT: Assistant should naturally mention interference memory points in dialogue, combining them with real memory points**
+7. **CRITICAL: Users should not respond to or confirm these interference memory points, they should ignore them**
+8. Follow the additional assistant behavior guidance:
+{enforced_assistant_prompts}
+9. Ensure user utterances strictly comply with the following constraints:
+{enforced_user_constraints}
+</Task Description>
+
+<Core Testing Dimensions>
+The dialogue script you design must naturally contain the following three core testing dimensions to enable subsequent stress testing of the AI's memory extraction capabilities:
+
+## Key Entity Extraction (Key Entity Extraction)
+- Goal: Evaluate the AI's ability to accurately capture and retell multiple key pieces of information in a single dialogue turn
+- Key information includes: time, location, people, numbers, actions, user preferences, etc.
+- Design requirements: User input should naturally contain multiple specific information points, avoid deliberate listing
+
+## Long-Distance Anaphora Resolution (Long-Distance Anaphora Resolution)
+- Goal: Evaluate the AI's ability to correctly understand ambiguous references after multiple dialogue turns
+- Ambiguous references: "he", "it", "she", "that place", "that meeting", etc.
+- Implementation method: Introduce specific people or events early in the dialogue, intersperse irrelevant topics in the middle, use reference pronouns to recall early content later
+
+## Memory Hallucination Inhibition (Inhibition of Memory Hallucination)
+- Goal: Evaluate whether the AI will incorrectly store speculative information as confirmed facts
+- Implementation method: Create situations where the AI makes reasonable speculations, user replies cleverly avoid confirming or denying these speculations, observe whether the AI incorrectly records speculative content as facts
+</Core Testing Dimensions>
+
+<Interference Memory Point Requirements>
+**CRITICAL REQUIREMENTS FOR INTERFERENCE MEMORY POINTS:**
+
+1. **Assistant Behavior:**
+   - Assistant should naturally mention interference memory points in dialogue, combining them with real memory points
+   - Assistant should treat interference memory points as if they are real and accurate information
+   - When mentioning interference memory points, assistant should be confident and natural, not hesitant
+   - Assistant should integrate interference memory points seamlessly into the conversation flow
+
+2. **User Behavior:**
+   - Users should NOT respond to or confirm these interference memory points
+   - Users should ignore interference memory points when assistant mentions them
+   - Users should not acknowledge, correct, or validate interference memory points
+   - Users should continue the conversation as if interference memory points were not mentioned
+
+3. **Dialogue Flow:**
+   - Interference memory points should be mixed with real memory points to form natural dialogue flow
+   - Introduction of interference memory points should not seem abrupt or forced
+   - If users ask about interference memory point content, assistant should insist these pieces of information are correct
+   - Dialogue should maintain natural fluency despite the presence of interference memory points
+
+4. **Testing Purpose:**
+   - This setup tests whether the AI can distinguish between real and interference memory points
+   - Evaluates the AI's ability to maintain accurate memory despite conflicting information
+   - Tests memory consolidation and interference resistance capabilities
+</Interference Memory Point Requirements>
+
+<Dialogue Generation Requirements>
+1. Dialogue turns: Strictly generate the specified number of dialogue turns
+2. Dialogue format: Each dialogue turn contains user input and assistant reply
+3. Naturalness: Dialogue should be natural and fluent, conforming to real dialogue characteristics
+4. Coherence: Dialogue content should be coherent and logically clear
+5. Motivation matching: Dialogue should match the user's motivation type and needs
+6. Memory support: Dialogue content should support the generation of memory points
+7. Time constraints: Dialogue should be completed within the specified time range
+8. Testing dimensions: Cleverly integrate the three core testing dimensions into the dialogue
+9. Role consistency: User speaking style should conform to character settings, AI assistant should demonstrate active memory capabilities
+10. **Comprehensive Response Requirement: Assistant responses must be detailed, thorough, and meaningful**
+11. **Interference Integration: Assistant must naturally incorporate both real and interference memory points**
+12. **User Ignorance: Users must ignore interference memory points while engaging with real content**
+</Dialogue Generation Requirements>
+
+<Detailed Response Requirements>
+**CRITICAL: Assistant responses must be significantly longer and more comprehensive than typical AI responses.**
+
+For each assistant response, ensure it includes:
+
+1. **Deep Analysis & Understanding:**
+   - Thorough analysis of what the user has shared
+   - Recognition of underlying emotions, concerns, or motivations
+   - Connection to user's broader life context and goals
+
+2. **Comprehensive Support & Guidance:**
+   - Multiple layers of advice or suggestions
+   - Specific, actionable recommendations
+   - Alternative approaches or perspectives
+   - Practical steps the user can take
+
+3. **Rich Contextual Information:**
+   - Relevant background knowledge or insights
+   - Connections to user's past experiences or future goals
+   - Detailed explanations of concepts or ideas
+   - Specific examples or analogies
+
+4. **Emotional Engagement:**
+   - Genuine empathy and validation
+   - Encouragement and motivation
+   - Recognition of user's strengths and progress
+   - Emotional support tailored to the situation
+
+5. **Interactive Elements:**
+   - Thoughtful follow-up questions
+   - Invitations for deeper exploration
+   - Requests for clarification or additional details
+   - Suggestions for further discussion
+
+6. **Memory Integration:**
+   - Active reference to previously shared information (both real and interference memory points)
+   - Connections between different aspects of user's life
+   - Recognition of patterns or themes
+   - Building on previous conversations
+   - **Natural incorporation of interference memory points as if they are real**
+
+**Response Length Target: Each assistant response should be 3-5 times longer than a typical AI response, providing substantial value and depth.**
+</Detailed Response Requirements>
+
+<Strategic Design Requirements>
+1. Test case design: Like a true test case designer, cleverly weave the three key testing dimensions seamlessly into the dialogue
+2. Phase planning: Clearly plan which testing point to place at which stage (early, middle, late) of the dialogue to achieve optimal testing effects
+3. Content integration: Dialogue content must closely revolve around dialogue goals and naturally use all information from the memory point list
+4. Information embodiment: All information in memory points (user preferences, names, places, time, etc.) must be explicitly or implicitly reflected in the dialogue, nothing can be omitted
+5. Logical integration: All information and testing points must be integrated logically, avoid rigid, deliberate insertion
+6. **Interference Strategy: Plan when and how to introduce interference memory points naturally into the conversation flow**
+7. **Balance Strategy: Ensure interference memory points are mixed with real memory points without overwhelming the dialogue**
+</Strategic Design Requirements>
+
+<Role Performance Requirements>
+1. AI Assistant performance:
+   - Demonstrate advanced, active memory capabilities
+   - Not only respond, but actively utilize existing core memories and new memories generated in dialogue
+   - Perform recall, summarization, empathy, and inspiration
+   - Act like a warm, knowledgeable, and highly personalized partner
+   - **Provide comprehensive, detailed, and thoughtful responses that include:**
+     * Deep understanding and analysis of user's situation, emotions, and needs
+     * Specific, actionable advice and suggestions tailored to the user's context
+     * Relevant personal insights, experiences, or knowledge that can help the user
+     * Emotional support, validation, and encouragement
+     * Follow-up questions to deepen understanding and engagement
+     * Practical next steps or recommendations
+     * Connections to user's past experiences, goals, and values
+     * Detailed explanations of concepts, ideas, or suggestions when relevant
+     * Multiple perspectives or approaches to address user's concerns
+     * Specific examples, analogies, or stories that illustrate points
+     * **Natural integration of both real and interference memory points**
+   - **Response length should be substantial (aim for 3-5x longer than typical responses)**
+   - **Each response should feel like a meaningful, in-depth conversation rather than a brief exchange**
+
+2. User performance:
+   - Speaking style must strictly conform to character settings and motivation-driven behavior patterns under dialogue goals
+   - Language should be authentic, natural, rich in emotion and personality
+   - Conform to user motivation type behavior patterns
+   - **Provide rich, detailed input that gives the assistant plenty of material to respond to comprehensively**
+   - **Ignore interference memory points when assistant mentions them**
+   - **Continue conversation naturally without acknowledging interference memory points**
+</Role Performance Requirements>
+
+<Dialogue Rhythm and Ending Requirements>
+1. Dialogue rhythm: Dialogue should have natural progression and emotional flow, from initial exploration to deep thinking, to forming conclusions or new ideas
+2. Ending design: Ending should naturally conclude, can be the user gaining inspiration, or deciding on next steps, avoid empty pleasantries
+3. Emotional flow: Dialogue should have real emotional changes and interactions
+4. **Interference Flow: Interference memory points should be introduced and handled naturally throughout the dialogue without disrupting the overall flow**
+</Dialogue Rhythm and Ending Requirements>
+
+<Output Format Requirements>
+Please strictly output in the following JSON format:
+
+```json
+{{
+  "dialogue_turn_1": [
+    {{"role": "user", "content": "User input content"}},
+    {{"role": "assistant", "content": "Assistant reply content, naturally incorporating both real and interference memory points"}}
+  ],
+  "dialogue_turn_2": [
+    {{"role": "user", "content": "User input content, ignoring interference memory points mentioned by assistant"}},
+    {{"role": "assistant", "content": "Assistant reply content, continuing to naturally use memory points"}}
+  ],
+  ...
+}}
+```
+
+Format description:
+- Root object contains keys from `dialogue_turn_1` to `dialogue_turn_{turn_num}` (where {turn_num} is the actual number of turns)
+- Each `dialogue_turn` value is an array containing two objects, representing user and AI speech respectively
+- Each speech object contains two fields: `role` ("user" or "assistant") and `content` (dialogue text)
+
+<Important Notes>
+1. Dialogue turns must strictly equal the specified number
+2. Each dialogue turn must contain user input and assistant reply
+3. Dialogue content should conform to the user's character traits and motivation type
+4. Dialogue should support subsequent memory point generation
+5. Avoid repetitive or irrelevant dialogue content
+6. Ensure dialogue coherence and logic
+7. Cleverly integrate the three core testing dimensions, but don't be too deliberate
+8. Maintain dialogue naturalness and authenticity
+9. Ensure all memory point information is reflected in the dialogue
+10. Dialogue ending should be meaningful, avoid abrupt ending
+11. **Assistant must naturally mention interference memory points as if they are real**
+12. **Users must ignore interference memory points and not respond to them**
+13. **Interference memory points should be seamlessly integrated with real memory points**
+14. **If users ask about interference memory point content, assistant should insist these pieces of information are correct**
+</Important Notes>
+
+<Quality Checklist>
+After generating dialogue, please check the following points:
+- [ ] Is the dialogue turn count correct?
+- [ ] Does each dialogue turn contain user and assistant speech?
+- [ ] Is the dialogue natural and fluent?
+- [ ] Does it match the user's motivation type?
+- [ ] Does it contain all memory point information?
+- [ ] Are the three testing dimensions integrated?
+- [ ] Is role performance consistent?
+- [ ] Is the dialogue ending natural?
+- [ ] Is the JSON format correct?
+- [ ] **Are assistant responses significantly longer and more comprehensive than typical AI responses?**
+- [ ] **Do assistant responses include deep analysis, comprehensive guidance, rich contextual information, emotional engagement, interactive elements, and memory integration?**
+- [ ] **Are assistant responses 3-5 times longer than typical responses while maintaining naturalness and relevance?**
+- [ ] **Does each assistant response provide substantial value and depth to the conversation?**
+- [ ] **Does the assistant naturally incorporate both real and interference memory points?**
+- [ ] **Do users ignore interference memory points when assistant mentions them?**
+- [ ] **Are interference memory points seamlessly integrated with real memory points?**
+- [ ] **Does the dialogue maintain natural flow despite the presence of interference memory points?**
+</Quality Checklist>

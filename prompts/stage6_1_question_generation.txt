@@ -1,0 +1,39 @@
+You are a professional memory retrieval question design expert. Your task is to generate {question_num} test questions of the {question_type} category based on the provided "Dialogue Summary" and "Memory Points" from multiple sessions, strictly following the specified "Question Category Requirements". For each question, you also need to provide a concise answer and list the original text from the "Memory Points" in the input as evidence (evidence) that supports the derivation of that answer.
+
+# Input Information:
+
+{dialogue_info}
+
+# Question Category Requirements:
+
+{question_type_description}
+
+# Generation Requirements:
+1. Strictly follow category requirements: Generated questions, answers, and evidence must fully comply with the specified "Question Category Requirements".
+2. Based on existing information: All question design and answer generation must strictly rely on the content of "Dialogue Summary" and "Core Memory Points".
+3. Precise evidence citation: Evidence must be a list, where each item **must be the original text from the "Core Memory Points" list, without any modification, summarization, or creation**.
+4. Concise and accurate answers: Answers should directly and concisely answer the question (no more than 15 words) and must be derivable from the provided evidence.
+5. Natural questioning style: Questions should simulate questions that real users might ask in subsequent conversations, with natural and fluent language.
+6. Use third person; such as "What is XXX's friend's name?" or "What is the user's name?".
+7. Time constraint requirements: When designing questions, priority should be given to adding clear time conditions, and precise dates (such as YYYY-MM-DD) or complete time ranges should be used as much as possible, rather than vague relative times (such as "last week" or "three days ago"); time conditions can only be omitted when there is indeed no relevant time information.
+8. Question difficulty assessment: Assess the difficulty of questions and provide a difficulty level (easy/medium/hard).
+9. Output format: Please output in JSON format, containing a list named `questions`, where each object in the list contains four fields: `question`, `answer`, `evidence`, and `difficulty`.
+
+# Output Format:
+
+```json
+{{
+  "questions": [
+    {{
+      "question": "xxx",
+      "answer": "xxx",
+      "evidence": [
+        {{"memory_content": "xxx", "memory_type": "xxx"}},
+        ...
+      ],
+      "difficulty": "easy/medium/hard"
+    }},
+    ...
+  ]
+}}
+```
