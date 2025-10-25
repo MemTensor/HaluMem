@@ -13,7 +13,7 @@
 </a>
 </p>
 
-### 📊 Why We Define the HaluMem Evaluation Tasks
+## 📊 Why We Define the HaluMem Evaluation Tasks
 
 - **Limitations of Existing Frameworks**
    Most existing evaluation frameworks treat memory systems as **black-box models**, assessing performance only through **end-to-end QA accuracy**.
@@ -25,7 +25,7 @@
 
 ------
 
-### 🧩 What Is HaluMem?
+## 🧩 What Is HaluMem?
 
 The paper *“HaluMem: A Comprehensive Benchmark for Evaluating Hallucinations in Memory Systems”* presents the **first operation-level hallucination benchmark** designed explicitly for memory systems.
 
@@ -117,7 +117,7 @@ Available versions:
 
 -----
 
-### 📚 Dataset Overview
+## 📚 Dataset Overview
 
 HaluMem consists of two dataset versions:
 
@@ -131,7 +131,7 @@ HaluMem consists of two dataset versions:
 
 ------
 
-### 🧱 Dataset Structure
+## 🧱 Dataset Structure
 
 Each user’s data is stored as a **JSON object** containing:
 
@@ -201,7 +201,7 @@ Each question tests **memory retrieval**, **reasoning**, or **hallucination cont
 
 ------
 
-### 🧬 Dataset Construction Process
+## 🧬 Dataset Construction Process
 
 The **HaluMem dataset** was built through a **six-stage, carefully controlled pipeline** that combines **programmatic generation**, **LLM-assisted refinement**, and **human validation** to ensure realism, consistency, and reliability.
 
