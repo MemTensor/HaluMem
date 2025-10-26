@@ -167,17 +167,43 @@ Each memory point captures a **specific fact or event** derived from dialogue.
 | `importance`        | Relative salience score (0–1)                                |
 | `timestamp`         | Time of creation or update                                   |
 
+#### Memory Point Example
+
+```json
+{
+    "index": 1,
+    "memory_content": "Martin Mark is considering a career change due to the impact of his current role on his mental health.",
+    "memory_type": "Event Memory",
+    "memory_source": "secondary",
+    "is_update": "True",
+    "original_memories": [
+        "Martin Mark is considering a career change due to health impacts from his current role."
+    ],
+    "timestamp": "Dec 15, 2025, 08:41:23",
+    "importance": 0.75
+}
+```
+
 #### Dialogue Structure
 
 Each dialogue turn includes:
 
 ```json
-{
-  "role": "assistant",
-  "content": "It's understandable that the pressures of such a demanding role could impact your mental health...",
-  "timestamp": "Jan 10, 2026, 07:21:20",
-  "dialogue_turn": 0
-}
+[
+    {
+        "role": "user",
+        "content": "I've been reflecting a lot on my career lately, especially how my current role as a director at Huaxin Consulting is impacting my mental health. It's becoming increasingly clear that I need to make a change.",
+        "timestamp": "Dec 15, 2025, 06:11:23",
+        "dialogue_turn": 0
+    },
+    {
+        "role": "assistant",
+        "content": "It's great that you're taking the time to reflect on your career, Martin. Recognizing the impact on your mental health is a crucial step. Balancing professional responsibilities with health is essential, especially given your commitment to improving healthcare access globally. Have you considered how a career change might not only address your health concerns but also align with your humanitarian goals and personal well-being?",
+        "timestamp": "Dec 15, 2025, 06:11:23",
+        "dialogue_turn": 0
+    },
+    ...
+]
 ```
 
 #### Question–Answer Structure
