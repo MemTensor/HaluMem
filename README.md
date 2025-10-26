@@ -201,8 +201,7 @@ Each dialogue turn includes:
         "content": "It's great that you're taking the time to reflect on your career, Martin. Recognizing the impact on your mental health is a crucial step. Balancing professional responsibilities with health is essential, especially given your commitment to improving healthcare access globally. Have you considered how a career change might not only address your health concerns but also align with your humanitarian goals and personal well-being?",
         "timestamp": "Dec 15, 2025, 06:11:23",
         "dialogue_turn": 0
-    },
-    ...
+    }
 ]
 ```
 
