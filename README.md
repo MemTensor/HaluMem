@@ -254,9 +254,9 @@ The **HaluMem dataset** was built through a **six-stage, carefully controlled pi
 7. **🧾 Human Annotation & Quality Verification**
     A team of 8 annotators manually reviewed over **50% of Halu-Medium**, scoring each session’s memory points and QA pairs on **correctness**, **relevance**, and **consistency**.
     Results demonstrate high data quality:
-   - ✅ **Accuracy:** 95.0%
-   - 📎 **Relevance:** 9.56 / 10
-   - 🔁 **Consistency:** 9.42 / 10
+   - ✅ **Accuracy:** 95.70%
+   - 📎 **Relevance:** 9.58 / 10
+   - 🔁 **Consistency:** 9.45 / 10
 
 ------
 
