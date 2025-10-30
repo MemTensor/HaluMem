@@ -2246,6 +2246,29 @@ pymysql = ["pymysql"]
 sqlcipher = ["sqlcipher3_binary"]
 
 [[package]]
+name = "supermemory"
+version = "3.4.0"
+description = "The official Python library for the supermemory API"
+optional = false
+python-versions = ">=3.8"
+groups = ["eval"]
+files = [
+    {file = "supermemory-3.4.0-py3-none-any.whl", hash = "sha256:c81b4ddfc89c21fc71317bf6aaa80a4d3362de9bc17a153d5e01aff68a2a61fc"},
+    {file = "supermemory-3.4.0.tar.gz", hash = "sha256:449bc5b637ee8f5c6510c8e7bb41415b182bc6e68d30f1fdb602f632dde8f7c8"},
+]
+
+[package.dependencies]
+anyio = ">=3.5.0,<5"
+distro = ">=1.7.0,<2"
+httpx = ">=0.23.0,<1"
+pydantic = ">=1.9.0,<3"
+sniffio = "*"
+typing-extensions = ">=4.10,<5"
+
+[package.extras]
+aiohttp = ["aiohttp", "httpx-aiohttp (>=0.1.8)"]
+
+[[package]]
 name = "tenacity"
 version = "9.1.2"
 description = "Retry code until it succeeds"
@@ -2535,4 +2558,4 @@ cffi = ["cffi (>=1.17,<2.0) ; platform_python_implementation != \"PyPy\" and pyt
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<4.0"
-content-hash = "293121b190d6cf8bff512d5aa5ec15d91a35d36d31138934ee4b0e430532620f"
+content-hash = "62d4ad77766e37b084083359e472cb123c698821710f6dc48f7f11f8c5ee90ee"

@@ -487,7 +487,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--frame",
         type=str,
-        choices=["memzero", "memzero-graph", "zep", "memos", "memobase"],
+        choices=["memzero", "memzero-graph", "zep", "memos", "memobase", "supermemory"],
     )
     parser.add_argument(
         "--version",

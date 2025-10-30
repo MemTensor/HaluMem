@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Memory System Evaluation Dataset Generation"
 authors = ["Your Name <your.email@example.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = ">=3.11,<4.0"
@@ -27,6 +28,7 @@ mem0ai = {extras = ["graph"], version = "^0.1.118"}
 zep-cloud = "^3.5.0"
 memobase = "^0.0.26"
 psycopg2 = "^2.9.11"
+supermemory = "^3.4.0"
 
 [build-system]
 requires = ["poetry-core"]

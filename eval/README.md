@@ -49,15 +49,16 @@ cp .env-example .env
 
 #### 🧠 Memory Systems
 
-| Variable                                                      | Description                      | Example                                                               |
-| ------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------- |
-| `MEM0_API_KEY`                                                | API key for Mem0                 | `xxx`                                                                 |
-| `ZEP_API_KEY`                                                 | API key for Zep Memory System    | `xxx`                                                                 |
-| `MEMOS_KEY`                                                   | Auth token for local MemOS       | `"Token mpg-xxxxx"`                                                   |
-| `MEMOS_URL`                                                   | Local MemOS endpoint             | `"http://127.0.0.1:8001"`                                             |
-| `MEMOS_ONLINE_URL`                                            | Online MemOS endpoint (optional) | `"https://memos.memtensor.cn/api/openmem/v1"`                         |
-| `MEMOBASE_PROJECT_URL`                                        | Memobase project endpoint        | `"http://127.0.0.1:8001"`                                             |
-| `MEMOBASE_PROJECT_TOKEN`                                      | Auth token for Memobase          | `"secret"`                                                            |
+| Variable                                                     | Description                      | Example                                                      |
+| ------------------------------------------------------------ | -------------------------------- | ------------------------------------------------------------ |
+| `MEM0_API_KEY`                                               | API key for Mem0                 | `xxx`                                                        |
+| `ZEP_API_KEY`                                                | API key for Zep Memory System    | `xxx`                                                        |
+| `MEMOS_KEY`                                                  | Auth token for local MemOS       | `"Token mpg-xxxxx"`                                          |
+| `SUPERMEMORY_API_KEY`                                        | API key for Supermemory          | `xxx`                                                        |
+| `MEMOS_URL`                                                  | Local MemOS endpoint             | `"http://127.0.0.1:8001"`                                    |
+| `MEMOS_ONLINE_URL`                                           | Online MemOS endpoint (optional) | `"https://memos.memtensor.cn/api/openmem/v1"`                |
+| `MEMOBASE_PROJECT_URL`                                       | Memobase project endpoint        | `"http://127.0.0.1:8001"`                                    |
+| `MEMOBASE_PROJECT_TOKEN`                                     | Auth token for Memobase          | `"secret"`                                                   |
 | `MEMOBASE_DB_HOST` / `PORT` / `USER` / `PASSWORD` / `DB_NAME` | Local DB config for Memobase     | `"127.0.0.1"`, `8002`, `"user_name"`, `"password"`, `"database_name"` |
 
 > 💡 Tip:
@@ -87,6 +88,7 @@ The repo includes evaluation adapters for multiple memory systems. Filenames map
 * `eval_memos.py` — MemOS
 * `eval_memobase.py` — Memobase
 * `eval_zep.py` — Zep
+* `eval_supermemory.py` — SuperMemory
 
 Each adapter follows the same input / output contract so the downstream scorer can compare systems fairly.
 
@@ -117,6 +119,7 @@ To evaluate memory systems using **HaluMem**, execute the following commands ste
 
 3. Outputs: the final results will be saved in the `results` folder.
    
+
 These artifacts enable reproducibility and further analysis (error inspection, evidence linking, per-memory-point breakdowns).
 
 ---
