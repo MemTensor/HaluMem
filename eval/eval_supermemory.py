@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
 from tqdm import tqdm
-from supermemory import Supermemory
+from supermemory import Supermemory, SupermemoryError, NotFoundError
 from tenacity import (
     retry,
     retry_if_exception_type,
@@ -73,7 +73,7 @@ def add_memory(client, user_id, dialogues, conv_id, batch_size=20):
 
 
 @retry(
-    retry=retry_if_exception_type(Exception),
+    retry=retry_if_exception_type((Exception, SupermemoryError, NotFoundError)),
     wait=wait_fixed(WAIT_TIME),
     stop=stop_after_attempt(RETRY_TIMES),
     reraise=True
@@ -157,6 +157,7 @@ def extract_user_name(persona_info: str):
 def process_user(user_data, top_k, save_path, version):
 
     user_name = extract_user_name(user_data["persona_info"]) + f"_{version}"
+    user_name = user_name.replace(" ", "_")
     sessions = user_data["sessions"]
 
     tmp_dir = os.path.join(save_path, "tmp")
@@ -204,7 +205,11 @@ def process_user(user_data, top_k, save_path, version):
             extracted_memories = []
 
             for response_id in response_id_ls:
-                get_memory_time, memories = get_memory_from_response_id(client, response_id)
+                try:
+                    get_memory_time, memories = get_memory_from_response_id(client, response_id)
+                except Exception as e:
+                    traceback.print_exc()
+                    get_memory_time, memories = 0, []
                 duration_ms += get_memory_time
                 extracted_memories.extend(memories)
             
@@ -333,7 +338,7 @@ def main(
 
 
 if __name__ == "__main__":
-    data_path = "../data/HaluMem-medium.jsonl"
+    data_path = "../data/HaluMem-Medium.jsonl"
     version = "default"
     top_k = 20
 
