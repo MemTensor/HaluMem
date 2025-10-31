@@ -123,8 +123,8 @@ HaluMem consists of two dataset versions:
 
 | Dataset         | #Users | #Dialogues | Avg. Sessions/User | Avg. Context Length | #Memory Points | #QA Pairs |
 | --------------- | ------ | ---------- | ------------------ | ------------------- | -------------- | --------- |
-| **Halu-Medium** | 20     | 30,073     | 70                 | ~160k tokens        | 14,948         | 3,714     |
-| **Halu-Long**   | 20     | 53,516     | 120                | ~1M tokens          | 14,948         | 3,714     |
+| **Halu-Medium** | 20     | 30,073     | 70                 | ~160k tokens        | 14,948         | 3,467     |
+| **Halu-Long**   | 20     | 53,516     | 120                | ~1M tokens          | 14,948         | 3,467     |
 
 - **Halu-Medium** provides multi-turn human-AI dialogue sessions for evaluating memory hallucinations in standard-length contexts.
 - **Halu-Long** extends context length to **1M tokens** per user, introducing large-scale **interference and distractor content** (e.g., factual QA and math problems) to assess robustness and hallucination resistance.
