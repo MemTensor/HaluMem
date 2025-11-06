@@ -270,3 +270,16 @@ The **HaluMem dataset** was built through a **six-stage, carefully controlled pi
 >  By covering **core memory operations**, scaling **context length**, and introducing **distractor interference**, it establishes a robust foundation for **systematic hallucination research** in large language model memory architectures.
 
 ------
+
+## Citation
+```
+@misc{chen2025halumemevaluatinghallucinationsmemory,
+      title={HaluMem: Evaluating Hallucinations in Memory Systems of Agents}, 
+      author={Ding Chen and Simin Niu and Kehang Li and Peng Liu and Xiangping Zheng and Bo Tang and Xinchi Li and Feiyu Xiong and Zhiyu Li},
+      year={2025},
+      eprint={2511.03506},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2511.03506}, 
+}
+```
