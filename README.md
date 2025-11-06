@@ -8,6 +8,9 @@
 <a href="https://github.com/MemTensor/HaluMem/issues">
     <img alt="GitHub Issues" src="https://img.shields.io/github/issues/MemTensor/HaluMem?color=blueviolet">
 </a>
+<a href="https://arxiv.org/abs/2511.03506">
+     <img src="https://img.shields.io/badge/arXiv-Paper-B31B1B?style=flat-square&logo=arxiv&logoColor=white">
+</a>
 <a href="https://huggingface.co/datasets/IAAR-Shanghai/HaluMem">
     <img alt="Huggingface" src="https://img.shields.io/badge/🤗_Huggingface-Datasets-ff9800.svg">
 </a>
