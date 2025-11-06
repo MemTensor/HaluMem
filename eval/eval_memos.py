@@ -48,8 +48,14 @@ def add(messages, user_id, conv_id):
     start = time.time()
 
     url = f"{memos_url}/product/add"
-    payload = json.dumps({"messages": messages, "user_id": user_id,
-                            "mem_cube_id": user_id, "conversation_id": conv_id})
+    payload = json.dumps(
+        {
+            "messages": messages, 
+            "user_id": user_id,
+            "mem_cube_id": user_id, 
+            "conversation_id": conv_id
+        }
+    )
     response = requests.request("POST", url, data=payload, headers=headers)
     response_json = json.loads(response.text)
     assert response.status_code == 200, response.text
@@ -95,30 +101,41 @@ def add_dialogue(dialogue, user_id, conv_id):
     stop=stop_after_attempt(RETRY_TIMES),
     reraise=True
 )
-def search_memory(query, user_id, top_k):
+def search_memory(query, user_id, top_k, pref_top_k=6):
     """Search memories."""
 
     start = time.time()
 
     url = f"{memos_url}/product/search"
     payload = json.dumps(
-        {"query": query, "user_id": user_id, "mem_cube_id": user_id,
-            "conversation_id": "", "top_k": top_k, }, ensure_ascii=False)
+        {
+            "query": query, 
+            "user_id": user_id, 
+            "mem_cube_id": user_id,
+            "conversation_id": "", 
+            "top_k": top_k, 
+            "mode": os.getenv("SEARCH_MODE", "fast"),
+            "include_preference": True,
+            "pref_top_k": pref_top_k
+        }, 
+        ensure_ascii=False
+    )
     response = requests.request("POST", url, data=payload, headers=headers)
     assert response.status_code == 200, response.text
     assert json.loads(response.text)["message"] == "Search completed successfully", response.text
 
     results = json.loads(response.text)["data"]
     memories = [i["memory"] for i in results["text_mem"][0]["memories"]]
+    pref_memories = [i["memory"] for i in results["pref_mem"][0]["memories"]]
 
     context = TEMPLATE_MEMOS.format(
         user_id=user_id,
-        memories="\n".join(memories)
+        memories="\n".join(memories) + f"\n{results.get('pref_string', '')}"
     )
 
     duration_ms = (time.time() - start) * 1000
 
-    return context, memories, duration_ms
+    return context, memories + pref_memories, duration_ms
 
 
 def extract_user_name(persona_info: str):
@@ -131,10 +148,9 @@ def extract_user_name(persona_info: str):
         raise ValueError("No name found.")
     
 
-def process_user(user_data, top_k, save_path, version):
+def process_user(user_data, top_k, pref_top_k, save_path, version):
 
     user_name = extract_user_name(user_data["persona_info"]) + f"_{version}"
-    print("user_name: ", user_name)
     sessions = user_data["sessions"]
 
     tmp_dir = os.path.join(save_path, "tmp")
@@ -190,7 +206,8 @@ def process_user(user_data, top_k, save_path, version):
                 _, memories_from_system, duration_ms = search_memory( 
                     query=memory["memory_content"],
                     user_id=user_name, 
-                    top_k=10
+                    top_k=10,
+                    pref_top_k=2
                 )
 
                 memory["memories_from_system"] = memories_from_system
@@ -207,7 +224,8 @@ def process_user(user_data, top_k, save_path, version):
                 context, _, duration_ms = search_memory(
                     query=qa["question"], 
                     user_id=user_name, 
-                    top_k=top_k
+                    top_k=top_k,
+                    pref_top_k=pref_top_k
                 )
 
                 new_qa = copy.deepcopy(qa)
@@ -254,6 +272,7 @@ def main(
     data_path: str,
     version: str = "default",
     top_k: int = 20,
+    pref_top_k: int = 6,
     max_workers: int = 2
 ):
     frame = "memos"
@@ -270,7 +289,7 @@ def main(
         futures = {}
         for idx, user_data in enumerate(iter_jsonl(data_path), 1):
             uuid = user_data["uuid"]
-            future = executor.submit(process_user, user_data, top_k, save_path, version)
+            future = executor.submit(process_user, user_data, top_k, pref_top_k, save_path, version)
             futures[future] = uuid
 
         total_users = idx
