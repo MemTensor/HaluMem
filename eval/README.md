@@ -108,6 +108,8 @@ To evaluate memory systems using **HaluMem**, execute the following commands ste
    * `data_path` : path to dataset
    * `version` : evaluation version identifier (used to tag outputs)
 
+   Specifically, for Zep, due to its asynchronous design, we provide an additional `run_task` argument in `eval_zep.py` to specify either the dialogue addition task (`run_task="add"`) or the memory retrieval task (`run_task="search"`, which includes both memory update and QA retrieval). The dialogue addition task must be executed first, and once the dialogue processing is complete (progress can be monitored via threads and episodes on the official platform), the memory retrieval task can then be performed.
+
 2. Score & aggregate results: run the following command to evaluate **Mem0** on memory extraction, memory update, and memory QA tasks, and aggregate the results.
 
    ```bash

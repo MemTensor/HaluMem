@@ -5,6 +5,7 @@ import uuid
 import json
 import copy
 import traceback
+from typing import Literal
 from datetime import datetime, timezone
 from dotenv import load_dotenv
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -168,18 +169,27 @@ def add_memory(client, user_id, thread_id, messages):
 
     splited_messages = split_conversations(messages)
     for message in splited_messages:
+        
         response = add_message(client, user_id, thread_id, message)
 
-    while True:
-        test_result = client.graph.search(
-            user_id=user_id, reranker="cross_encoder", query="Name?", scope="edges", limit=1
-        )
-        if test_result.edges is not None:
-            break
-        time.sleep(5)
+    duration_ms = (time.time() - start) * 1000
 
-    memory = client.thread.get_user_context(thread_id=thread_id, mode="summary")
+    return duration_ms
 
+
+@retry(
+    retry=retry_if_exception_type(Exception),
+    wait=wait_fixed(WAIT_TIME),
+    stop=stop_after_attempt(RETRY_TIMES),
+    reraise=True
+)
+def get_thread_memory(client, thread_id):
+
+    start = time.time()
+
+    memory = client.thread.get_user_context(thread_id=thread_id, mode="basic")
+
+    # Access the context block (for use in prompts)
     context_block = memory.context
 
     duration_ms = (time.time() - start) * 1000
@@ -210,7 +220,9 @@ def search_memory(
     facts = [f'  - {edge.fact} (event_time: {edge.valid_at})' for edge in edges_results]
 
     node_results = (
-        client.graph.search(user_id=user_id, reranker="rrf", query=query, scope="nodes", limit=top_k - top_k//2)
+        client.graph.search(
+            user_id=user_id, reranker="rrf", query=query, scope="nodes", limit=top_k - top_k//2
+        )
     ).nodes
 
     entities = [f'  - {node.name}: {node.summary}' for node in node_results]
@@ -231,11 +243,12 @@ def extract_user_name(persona_info: str):
         return username
     else:
         raise ValueError("No name found.")
-    
 
-def process_user(user_data, top_k, save_path):
+
+def process_user_add_memory(user_data, save_path, version):
 
     user_name = extract_user_name(user_data["persona_info"])
+    user_id = user_name + "_" + version
 
     try:
         client.user.delete(user_name)
@@ -243,14 +256,14 @@ def process_user(user_data, top_k, save_path):
         pass
 
     user = client.user.add(
-        user_id=user_name,
+        user_id=user_id,
         first_name=user_name.split()[0],
         last_name=user_name.split()[1],
     )
 
     sessions = user_data["sessions"]
 
-    tmp_dir = os.path.join(save_path, "tmp")
+    tmp_dir = os.path.join(save_path, "tmp-add")
     os.makedirs(tmp_dir, exist_ok=True)
 
     tmp_file = os.path.join(tmp_dir, f"{user_data['uuid']}.json")
@@ -258,12 +271,13 @@ def process_user(user_data, top_k, save_path):
     new_user_data = {
         "uuid": user_data["uuid"],
         "user_name": user_name,
+        "user_id": user_id,
         "sessions": []
     }
 
     try:
 
-        for session in tqdm(sessions, total=len(sessions), desc=f"Processing user {user_name}"):
+        for session in tqdm(sessions, total=len(sessions), desc=f"Processing (add) user {user_name}"):
             new_session = {
                 "memory_points": session["memory_points"],
                 "dialogue": session["dialogue"]
@@ -273,9 +287,9 @@ def process_user(user_data, top_k, save_path):
             dialogue = session["dialogue"]
             thread_id = uuid.uuid4().hex
             
-            result, duration_ms = add_memory(
+            duration_ms = add_memory(
                 client=client, 
-                user_id=user_name,
+                user_id=user_id,
                 thread_id=thread_id,
                 messages=dialogue
             )
@@ -290,23 +304,74 @@ def process_user(user_data, top_k, save_path):
                 new_user_data["sessions"].append(new_session)
                 continue
 
-            extracted_memories = result
-            new_session["extracted_memories"] = extracted_memories
             new_session["add_dialogue_duration_ms"] = duration_ms
 
-            # search updated memories
+            if "questions" not in session:
+                new_user_data["sessions"].append(new_session)
+                continue
+
+            new_session["questions"] = session["questions"]
+        
+            new_user_data["sessions"].append(new_session)
+
+        with open(tmp_file, "w", encoding="utf-8") as f:
+            json.dump(new_user_data, f, ensure_ascii=False)
+
+        print(f"✅ Saved user {user_name} to {tmp_file}")
+        return {"uuid": user_data["uuid"], "status": "ok", "path": tmp_file}
+
+    except Exception as e:
+        error_path = os.path.join(tmp_dir, f"{user_data['uuid']}_error.log")
+        with open(error_path, "w", encoding="utf-8") as f:
+            f.write(traceback.format_exc())
+        print(f"❌ Error in user {user_name}: {e}")
+        return {"uuid": user_data["uuid"], "status": "error", "path": error_path}
+
+
+def process_user_search_memory(user_data, top_k, save_path):
+
+    user_name = user_data["user_name"]
+    user_id = user_data["user_id"]
+
+    sessions = user_data["sessions"]
+
+    tmp_dir = os.path.join(save_path, "tmp-search")
+    os.makedirs(tmp_dir, exist_ok=True)
+
+    tmp_file = os.path.join(tmp_dir, f"{user_data['uuid']}.json")
+
+    new_user_data = {
+        "uuid": user_data["uuid"],
+        "user_name": user_name,
+        "user_id": user_id,
+        "sessions": []
+    }
+
+    try:
+
+        for session in tqdm(sessions, total=len(sessions), desc=f"Processing (search) user {user_name}"):
+
+            if session.get('is_generated_qa_session', False):
+                new_user_data["sessions"].append(session)
+                continue
+
+            new_session = {
+                "memory_points": session["memory_points"],
+                "dialogue": session["dialogue"],
+                "zep_thread_id": session["zep_thread_id"],
+                "add_dialogue_duration_ms": session["add_dialogue_duration_ms"]
+            }
+
+            thread_id = session["zep_thread_id"]
+            extracted_memories, duration_ms = get_thread_memory(client, thread_id)
+            new_session["extracted_memories"] = extracted_memories
+
+            # updated memories
             for memory in new_session["memory_points"]:
                 if memory["is_update"] == "False" or not memory["original_memories"]:
                     continue
 
-                _, memories_from_system, duration_ms = search_memory(
-                    client=client, 
-                    query=memory["memory_content"][:396],
-                    user_id=user_name, 
-                    top_k=10
-                )
-
-                memory["memories_from_system"] = memories_from_system
+                memory["memories_from_system"] = extracted_memories
 
             # search and query
             if "questions" not in session:
@@ -320,7 +385,7 @@ def process_user(user_data, top_k, save_path):
                 context, _, duration_ms = search_memory(
                     client=client, 
                     query=qa["question"], 
-                    user_id=user_name, 
+                    user_id=user_id, 
                     top_k=top_k
                 )
 
@@ -364,29 +429,20 @@ def iter_jsonl(file_path):
                 yield json.loads(line)
 
 
-def main(
+def run_add(
     data_path: str,
+    save_path: str,
     version: str = "default",
-    top_k: int = 20,
     max_workers: int = 2
 ):
-    frame = "zep"
-    save_path = f"results/{frame}-{version}/"
-    os.makedirs(save_path, exist_ok=True)
-    
-    output_file = os.path.join(save_path, f"{frame}_eval_results.jsonl")
-    tmp_dir = os.path.join(save_path, "tmp")
-    os.makedirs(tmp_dir, exist_ok=True)
-
     start_time = time.time()
 
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
         futures = {}
         for idx, user_data in enumerate(iter_jsonl(data_path), 1):
-            if user_data["uuid"] not in ["2f4b4206-20bc-19a5-a5ed-4d110f91f4db"]:
-                continue
+            
             uuid = user_data["uuid"]
-            future = executor.submit(process_user, user_data, top_k, save_path)
+            future = executor.submit(process_user_add_memory, user_data, save_path, version)
             futures[future] = uuid
 
         total_users = idx
@@ -395,15 +451,55 @@ def main(
             uuid = futures[future]
             try:
                 result = future.result()
-                print(f"[{i}/{total_users}] ✅ Finished {uuid} ({result['status']})")
+                print(f"[{i}/{total_users}] ✅ Finished (add) {uuid} ({result['status']})")
             except Exception as e:
-                print(f"[{i}/{total_users}] ❌ Error processing {uuid}: {e}")
+                print(f"[{i}/{total_users}] ❌ Error processing (add) {uuid}: {e}")
                 traceback.print_exc()
 
-    with open(output_file, "a", encoding="utf-8") as f_out:
-        for file in os.listdir(tmp_dir):
+    elapsed = time.time() - start_time
+    print(f"✅All dialogues added! Finished in {elapsed:.2f}s")
+
+
+def run_search(
+    save_path: str,
+    output_file: str,
+    top_k: int = 20,
+    max_workers: int = 2
+):
+    start_time = time.time()
+    add_res_dir = os.path.join(save_path, "tmp-add")
+
+    with ProcessPoolExecutor(max_workers=max_workers) as executor:
+        futures = {}
+        for idx, file_name in enumerate(os.listdir(add_res_dir), 1):
+            if idx > 1: continue
+            if not file_name.endswith(".json"):
+                continue
+            user_file = os.path.join(add_res_dir, file_name)
+            with open(user_file, "r", encoding="utf-8") as f:
+                user_data = json.load(f)
+
+            uuid = user_data["uuid"]
+            future = executor.submit(process_user_search_memory, user_data, top_k, save_path)
+            futures[future] = uuid
+
+        total_users = idx
+        
+        for i, future in enumerate(as_completed(futures), 1):
+            uuid = futures[future]
+            try:
+                result = future.result()
+                print(f"[{i}/{total_users}] ✅ Finished (search) {uuid} ({result['status']})")
+            except Exception as e:
+                print(f"[{i}/{total_users}] ❌ Error processing (search) {uuid}: {e}")
+                traceback.print_exc()
+    
+    search_res_dir = os.path.join(save_path, "tmp-search")
+
+    with open(output_file, "w", encoding="utf-8") as f_out:
+        for file in os.listdir(search_res_dir):
             if file.endswith(".json"):
-                file_path = os.path.join(tmp_dir, file)
+                file_path = os.path.join(search_res_dir, file)
                 try:
                     with open(file_path, "r", encoding="utf-8") as f_in:
                         data = json.load(f_in)
@@ -416,13 +512,37 @@ def main(
     print(f"✅ Final results saved to: {output_file}")
 
 
+def main(
+    data_path: str,
+    version: str = "default",
+    top_k: int = 20,
+    max_workers: int = 2,
+    run_task: Literal['all', 'add', 'search'] = 'all'
+):
+    frame = "zep"
+    save_path = f"results/{frame}-{version}/"
+    os.makedirs(save_path, exist_ok=True)
+    
+    output_file = os.path.join(save_path, f"{frame}_eval_results.jsonl")
+
+    if run_task == "all":
+        run_add(data_path, save_path, version, max_workers)
+        run_search(save_path, output_file, top_k, max_workers)
+    elif run_task == "add":
+        run_add(data_path, save_path, version, max_workers)
+    elif run_task == "search":
+        run_search(save_path, output_file, top_k, max_workers)
+
+
 if __name__ == "__main__":
     data_path = "../data/HaluMem-medium.jsonl"
     version = "default"
     top_k = 20
+    run_task = "add"
 
     main(
         data_path=data_path,
         version=version,
-        top_k=top_k
+        top_k=top_k,
+        run_task=run_task
     )
