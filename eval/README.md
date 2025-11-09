@@ -125,3 +125,20 @@ To evaluate memory systems using **HaluMem**, execute the following commands ste
 These artifacts enable reproducibility and further analysis (error inspection, evidence linking, per-memory-point breakdowns).
 
 ---
+
+## Special Configurations for Some Memory Systems
+
+While the experimental setup strives to maintain consistent configurations across all evaluated systems, certain memory systems exhibit unique API constraints that necessitate specific adjustments or workarounds.
+Each subsection below outlines these system-specific configurations to ensure reproducibility.
+
+#### Memobase
+
+Since Memobase does not provide a Get Dialogue Memory API, we adopted a localized deployment approach and directly accessed the corresponding dialogue memories from its underlying database. Additionally, the Retrieve Memory API of Memobase only supports controlling the maximum length of the returned memory text. Based on test results, we set the maximum length for memory recall in the memory updating task to 250 tokens and the recall length for the memory question answering task to 500 tokens.
+
+#### Zep
+
+According to our current understanding, the official APIs provided by Zep do not support retrieving all memory points within a specific session, meaning they do not offer functionality equivalent to a Get Dialogue Memory API. Consequently, we were unable to evaluate Zep’s performance on the memory extraction task. We attempted to use the function `thread.get_user_context()` offered by Zep to obtain all memories under a given thread; however, this method only returns recent memories rather than the complete set, which does not meet the evaluation requirements. Moreover, since Zep’s memory processing workflow operates entirely asynchronously, we could not accurately measure the time consumption in the dialogue addition phase and instead recorded only the time cost associated with memory retrieval.
+
+Therefore, the evaluation metrics of the *memory extraction* task (`memory_accuracy` and `memory_recall`) and the *dialogue addition time* obtained after running `eval_zep.py` and `evaluation.py` cannot accurately reflect the actual performance of Zep.
+
+---

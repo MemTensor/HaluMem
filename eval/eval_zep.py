@@ -371,7 +371,14 @@ def process_user_search_memory(user_data, top_k, save_path):
                 if memory["is_update"] == "False" or not memory["original_memories"]:
                     continue
 
-                memory["memories_from_system"] = extracted_memories
+                _, memories_from_system, duration_ms = search_memory(
+                    client=client, 
+                    query=memory["memory_content"][:395], 
+                    user_id=user_id, 
+                    top_k=10
+                )
+
+                memory["memories_from_system"] = memories_from_system
 
             # search and query
             if "questions" not in session:
@@ -472,7 +479,6 @@ def run_search(
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
         futures = {}
         for idx, file_name in enumerate(os.listdir(add_res_dir), 1):
-            if idx > 1: continue
             if not file_name.endswith(".json"):
                 continue
             user_file = os.path.join(add_res_dir, file_name)
@@ -517,7 +523,7 @@ def main(
     version: str = "default",
     top_k: int = 20,
     max_workers: int = 2,
-    run_task: Literal['all', 'add', 'search'] = 'all'
+    run_task: Literal['add', 'search'] = 'add'
 ):
     frame = "zep"
     save_path = f"results/{frame}-{version}/"
@@ -525,10 +531,7 @@ def main(
     
     output_file = os.path.join(save_path, f"{frame}_eval_results.jsonl")
 
-    if run_task == "all":
-        run_add(data_path, save_path, version, max_workers)
-        run_search(save_path, output_file, top_k, max_workers)
-    elif run_task == "add":
+    if run_task == "add":
         run_add(data_path, save_path, version, max_workers)
     elif run_task == "search":
         run_search(save_path, output_file, top_k, max_workers)
