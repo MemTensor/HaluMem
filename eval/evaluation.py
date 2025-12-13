@@ -14,6 +14,22 @@ from eval_tools import (
 )
 
 
+def compute_f1(precision: float, recall: float) -> float:
+    """
+    Compute the F1-score from precision and recall.
+
+    Args:
+        precision (float): Precision value (0~1)
+        recall (float): Recall value (0~1)
+
+    Returns:
+        float: F1-score
+    """
+    if precision + recall == 0:
+        return 0.0
+    return 2 * (precision * recall) / (precision + recall)
+
+
 def process_user(idx: int, user_data: dict, max_workers: int = 10):
     uuid = user_data["uuid"]
     user_name = user_data["user_name"]
@@ -269,6 +285,12 @@ def aggregate_eval_results(eval_results):
     eval_results["overall_score"]["memory_accuracy"]["memory_valid_num"] = memory_accuracy_valid_num
     eval_results["overall_score"]["memory_accuracy"]["memory_num"] = memory_accuracy_num
 
+    # Memory Extraction F1-score
+    eval_results["overall_score"]["memory_extraction_f1"] = compute_f1(
+        precision=eval_results["overall_score"]["memory_accuracy"]["target_accuracy(all)"],
+        recall=eval_results["overall_score"]["memory_integrity"]["recall(all)"]
+    )
+
     # Memory Update Evaluation
     correct_update_memory_num = 0
     hallucination_update_memory_num = 0
@@ -430,6 +452,7 @@ def main(
         "overall_score": {
             "memory_integrity": {},
             "memory_accuracy": {},
+            "memory_extraction_f1": 0,
             "memory_update": {},
             "question_answering": {},
             "memory_type_accuracy": {
