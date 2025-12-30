@@ -50,10 +50,12 @@ def add(messages, user_id, conv_id):
     url = f"{memos_url}/product/add"
     payload = json.dumps(
         {
-            "messages": messages, 
+            "messages": messages,
             "user_id": user_id,
-            "mem_cube_id": user_id, 
-            "conversation_id": conv_id
+            "mem_cube_id": user_id,
+            "conversation_id": conv_id,
+            "mode": "fine",
+            "async_mode": "sync",
         }
     )
     response = requests.request("POST", url, data=payload, headers=headers)
