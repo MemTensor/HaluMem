@@ -55,8 +55,8 @@ cp .env-example .env
 | `ZEP_API_KEY`                                                | API key for Zep Memory System    | `xxx`                                                        |
 | `MEMOS_KEY`                                                  | Auth token for local MemOS       | `"Token mpg-xxxxx"`                                          |
 | `SUPERMEMORY_API_KEY`                                        | API key for Supermemory          | `xxx`                                                        |
-| `MEMOS_URL`                                                  | Local MemOS endpoint             | `"http://127.0.0.1:8001"`                                    |
-| `MEMOS_ONLINE_URL`                                           | Online MemOS endpoint (optional) | `"https://memos.memtensor.cn/api/openmem/v1"`                |
+| `MEMOS_URL`                                                  | Local MemOS endpoint (optional)  | `"http://127.0.0.1:8001"`                                    |
+| `MEMOS_ONLINE_URL`                                           | Online MemOS endpoint            | `"https://memos.memtensor.cn/api/openmem/v1"`                |
 | `MEMOBASE_PROJECT_URL`                                       | Memobase project endpoint        | `"http://127.0.0.1:8001"`                                    |
 | `MEMOBASE_PROJECT_TOKEN`                                     | Auth token for Memobase          | `"secret"`                                                   |
 | `MEMOBASE_DB_HOST` / `PORT` / `USER` / `PASSWORD` / `DB_NAME` | Local DB config for Memobase     | `"127.0.0.1"`, `8002`, `"user_name"`, `"password"`, `"database_name"` |
@@ -68,11 +68,10 @@ cp .env-example .env
 
 ---
 
-## 🔧 Local deployments (MemOS / Memobase)
+## 🔧 Local deployments (Memobase)
 
-For MemOS and Memobase we rely on local/service deployments. See these projects for install & runtime instructions:
+For Memobase we rely on local/service deployments. See these projects for install & runtime instructions:
 
-* MemOS: [https://github.com/MemTensor/MemOS](https://github.com/MemTensor/MemOS)
 * Memobase: [https://github.com/memodb-io/memobase](https://github.com/memodb-io/memobase)
 
 Make sure the services are running and the corresponding endpoints are reachable before running the evaluation scripts.
