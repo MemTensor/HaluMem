@@ -979,3 +979,10 @@ The **HaluMem dataset** was built through a **six-stage, carefully controlled pi
       url={https://arxiv.org/abs/2511.03506}, 
 }
 ```
+
+
+
+### 🏆 Community Results (2026.04 Update)
+| System | Accuracy | Integrity | Resistance | Total | Note |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **VantaGrid v5.7.3** | **100** | **100** | **100** | **100/100** | First perfect score. Deterministic State Anchor. |
