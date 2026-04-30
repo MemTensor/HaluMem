@@ -424,7 +424,7 @@ def main(
             elapsed = time.time() - start_time
             print(f"✅ Finished user {uuid} ({idx}), elapsed {elapsed:.2f}s.")
 
-        if idx > user_num:
+        if idx >= user_num:
             break
 
     add_dialogue_duration_time = 0
