@@ -16,6 +16,11 @@
 </a>
 </p>
 
+## 🔥 What's New
+
+- **[2026.09]** A community-maintained [EvalPort HaluMem Adapter](https://github.com/adhabnr-ux/evalport/tree/main/adapters/halumem-openeval-adapter) is now available for converting HaluMem evaluation results to the EvalPort format.
+- **[2026.08]** 🎉 HaluMem has been accepted to the **EMNLP 2026 Main Conference**!
+
 ## 📊 Why We Define the HaluMem Evaluation Tasks
 
 <div align="center">
@@ -776,6 +781,13 @@ It supports **multiple memory systems** and provides standardized pipelines for 
    All evaluation outputs (task scores, FMR, aggregated metrics) are saved in the `results/` directory.
 
 For full command details, configuration options, and examples, see [`eval/README.md`](./eval/README.md).
+
+
+---
+
+### 🔌 Community Integrations
+
+- [EvalPort HaluMem Adapter](https://github.com/adhabnr-ux/evalport/tree/main/adapters/halumem-openeval-adapter) — A community-maintained interoperability adapter for converting HaluMem evaluation results to and from the EvalPort format.
 
 ---
 
